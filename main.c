@@ -84,8 +84,13 @@ void ClientClose(aeEventLoop *el, int fd, int err, void* privdata)
 void ReadFromClient(aeEventLoop *el, int fd, void *privdata, int mask)
 {
 	char buffer[MAX_LEN] = { 0 };
-	int res;
-	res = read(fd, buffer, MAX_LEN);
+	
+	int res = read(fd, buffer, 2);
+	assert(res == 2);
+
+	res = read(fd, buffer, res);
+
+	int res = read(fd, buffer, MAX_LEN);
 	printf("read: %d\n", res);
 	if( res <= 0 )
 	{
